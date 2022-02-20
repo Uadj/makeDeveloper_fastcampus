@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Slf4j
 public class DevDto {
-
     String name;
     Integer age;
     Integer ExperienceYears;
