@@ -1,0 +1,2 @@
+DELETE http://localhost:8080/developer/hi221
+Content-Type: application/json

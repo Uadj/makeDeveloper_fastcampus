@@ -1,5 +1,6 @@
 package com.example.makedeveloper_fastcampus.dto;
 
+import com.example.makedeveloper_fastcampus.code.StatusCode;
 import com.example.makedeveloper_fastcampus.entity.Developer;
 import com.example.makedeveloper_fastcampus.type.DeveloperLevel;
 import com.example.makedeveloper_fastcampus.type.DeveloperSkillType;
@@ -21,7 +22,7 @@ public class DeveloperDetailDto {
     private String memberId;
     private String name;
     private Integer age;
-
+    private StatusCode statusCode;
     public static DeveloperDetailDto fromEntity(Developer developer){
         return DeveloperDetailDto.builder()
                 .developerLevel(developer.getDeveloperLevel())

@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "developer")
 
 
-public class Developer {
+public class RetiredDeveloper {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,9 +37,10 @@ public class Developer {
     private String name;
     private Integer age;
 
+
     @Enumerated(EnumType.STRING)
     private StatusCode statusCode;
-    
+
     @CreatedDate
     private LocalDateTime createdAt;
 
