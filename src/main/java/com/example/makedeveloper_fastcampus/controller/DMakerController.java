@@ -3,6 +3,7 @@ package com.example.makedeveloper_fastcampus.controller;
 import com.example.makedeveloper_fastcampus.dto.CreateDeveloper;
 import com.example.makedeveloper_fastcampus.dto.DeveloperDetailDto;
 import com.example.makedeveloper_fastcampus.dto.DeveloperDto;
+import com.example.makedeveloper_fastcampus.dto.EditDeveloper;
 import com.example.makedeveloper_fastcampus.service.DMakerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,5 +43,13 @@ public class DMakerController {
         return ResponseEntity.ok(
                 dMakerService.createDeveloper(request)
         );
+    }
+    @PutMapping("/developer/{memberId}")
+    public DeveloperDetailDto editDeveloper(
+            @PathVariable String memberId,
+            @Valid @RequestBody EditDeveloper.Request request
+    ){
+        log.info("PUT /developer/{memberId} HTTP/1.1");
+        return dMakerService.editDeveloper(memberId, request);
     }
 }

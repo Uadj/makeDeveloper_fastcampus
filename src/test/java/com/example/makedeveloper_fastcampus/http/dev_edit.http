@@ -1,0 +1,15 @@
+< ./request-form-data.json
+--WebAppBoundary--
+
+### Send request with dynamic variables in request's body
+PUT http://localhost:8080/developer/hi221
+Content-Type: application/json
+
+{
+  "developerLevel": "SENIOR",
+  "developerSkillType": "FRONT_END",
+  "experienceYears": 66,
+  "memberId": "hi221",
+  "name": "olaf",
+  "age": 32
+}
