@@ -1,6 +1,8 @@
 package com.example.makedeveloper_fastcampus.service;
 
 import com.example.makedeveloper_fastcampus.dto.CreateDeveloper;
+import com.example.makedeveloper_fastcampus.dto.DeveloperDetailDto;
+import com.example.makedeveloper_fastcampus.dto.DeveloperDto;
 import com.example.makedeveloper_fastcampus.entity.Developer;
 import com.example.makedeveloper_fastcampus.exception.DMakerErrorCode;
 import com.example.makedeveloper_fastcampus.exception.DMakerException;
@@ -12,10 +14,11 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static com.example.makedeveloper_fastcampus.exception.DMakerErrorCode.DUPLICATED_MEMBER_ID;
-import static com.example.makedeveloper_fastcampus.exception.DMakerErrorCode.LEVEL_EXPERIENCE_YEAR_NOT_MATCHED;
+import static com.example.makedeveloper_fastcampus.exception.DMakerErrorCode.*;
 import static org.springframework.data.repository.util.ClassUtils.ifPresent;
 
 @Service
@@ -54,5 +57,16 @@ public class DMakerService {
         .ifPresent((developer->{
             throw new DMakerException(DUPLICATED_MEMBER_ID);
         }));
+    }
+
+    public List<DeveloperDto> getAllDevelopers() {
+        return developerRepository.findAll()
+                .stream().map(DeveloperDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+    public DeveloperDetailDto getDeveloperDetail(String memberId) {
+        return developerRepository.findByMemberId(memberId)
+                .map(DeveloperDetailDto::fromEntity)
+                .orElseThrow(()-> new DMakerException(NO_DEVELOPER));
     }
 }
