@@ -1,18 +1,16 @@
 package com.example.makedeveloper_fastcampus.controller;
 
-import com.example.makedeveloper_fastcampus.dto.CreateDeveloper;
-import com.example.makedeveloper_fastcampus.dto.DeveloperDetailDto;
-import com.example.makedeveloper_fastcampus.dto.DeveloperDto;
-import com.example.makedeveloper_fastcampus.dto.EditDeveloper;
+import com.example.makedeveloper_fastcampus.dto.*;
+import com.example.makedeveloper_fastcampus.exception.DMakerException;
 import com.example.makedeveloper_fastcampus.service.DMakerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -57,5 +55,18 @@ public class DMakerController {
             @PathVariable String memberId
     ){
         return dMakerService.deleteDeveloper(memberId);
+    }
+
+    @ResponseStatus(value = HttpStatus.CONFLICT)
+    @ExceptionHandler(DMakerException.class)
+    public DMakerErrorResponse handleException(DMakerException e,
+                                               HttpServletRequest request
+    ){
+        log.error("errorCode : {}, url: {}, message: {}", e.getDMakerErrorCode(),
+                request.getRequestURI(), e.getDetailMessage());
+        return DMakerErrorResponse.builder()
+                .errorCode(e.getDMakerErrorCode())
+                .errorMessage(e.getDetailMessage())
+                .build();
     }
 }

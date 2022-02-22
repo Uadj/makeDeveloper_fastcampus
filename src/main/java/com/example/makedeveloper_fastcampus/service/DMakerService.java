@@ -30,6 +30,7 @@ import static org.springframework.data.repository.util.ClassUtils.ifPresent;
 public class DMakerService {
     private final DeveloperRepository developerRepository;
     private final RetiredDeveloperRepository retiredDeveloperRepository;
+
     public CreateDeveloper.Response createDeveloper(CreateDeveloper.Request request) {
         Developer developer = Developer.builder()
                 .developerLevel(request.getDeveloperLevel())
@@ -96,8 +97,6 @@ public class DMakerService {
                 request.getDeveloperLevel(),
                 request.getExperienceYears()
         );
-
-
     }
     @Transactional
     public DeveloperDetailDto deleteDeveloper(String memberId) {
